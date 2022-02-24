@@ -1,4 +1,4 @@
-﻿// Iteration 1
+﻿// Iteration 2
 string SkoleInput, HovedforlobInput;
 Console.WriteLine("Angiv skole: ");
 SkoleInput = Console.ReadLine();
