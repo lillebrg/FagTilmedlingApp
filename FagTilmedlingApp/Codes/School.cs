@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FagTilmedlingApp.Codes
+namespace FagTilmeldingApp.Codes
 {
-    internal class School
+    internal abstract class School
     {
+        public string? SchoolName { get; set; }
+
+        public School(string? schoolName)
+        {
+            SchoolName = schoolName;
+        }
     }
 }
