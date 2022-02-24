@@ -4,9 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FagTilmedlingApp.Codes
+namespace FagTilmeldingApp.Codes
 {
-    internal class Semester
+    internal sealed class Semester : School
     {
+        public string? SemesterNavn { get; set; }
+
+        public Semester(string? schoolName, string? semesterNavn) : base(schoolName)
+        {
+            SemesterNavn = semesterNavn;
+        }
+
     }
 }
