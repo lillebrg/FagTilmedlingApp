@@ -1,12 +1,110 @@
-﻿// Iteration 2
-string SkoleInput, HovedforlobInput;
-Console.WriteLine("Angiv skole: ");
-SkoleInput = Console.ReadLine();
-Console.WriteLine("Angiv hovedforløb: ");
-HovedforlobInput = Console.ReadLine();
-Semester se = new(SkoleInput, HovedforlobInput);
-Console.Clear();
+﻿using FagTilmedlingApp.Codes.Models;
+// Iteration 2
 
-Console.WriteLine("-------------------------------------------------");
-Console.WriteLine("{0}, {1} fag tildmelding app.", se.SchoolName, se.SemesterNavn);
-Console.WriteLine("-------------------------------------------------");
+string? errorMsg = null;
+Student? matchedStudent = null;
+Course ? matchedCourse = null;
+
+Console.WriteLine("Angiv Skole: ");
+string? skoleNavn = Console.ReadLine();
+
+Console.WriteLine("Angiv Hovedforløb: ");
+string? hovedforløbNavn = Console.ReadLine();
+
+
+
+List<Teacher> teachers = new()
+{
+    new Teacher() { Id = 1, FirstName = "Niels", LastName = "Olesen" },
+    new Teacher() { Id = 2, FirstName = "Henrik", LastName = "Poulsen" }
+};
+
+List<Student> students = new()
+{
+    new Student() { Id = 1, FirstName = "Martin", LastName = "Jensen" },
+    new Student() { Id = 2, FirstName = "Patrik", LastName = "Nielsen" },
+    new Student() { Id = 1, FirstName = "Susanne", LastName = "Hansen" },
+    new Student() { Id = 2, FirstName = "Thomas", LastName = "Olsen" }
+};
+
+List<Course> courses = new()
+{
+    new Course() { Id = 1, CourseName = "Grundlæggende programmering", TeacherId = 1 },
+    new Course() { Id = 2, CourseName = "Database programmering", TeacherId = 1 },
+    new Course() { Id = 6, CourseName = "StudieTeknik", TeacherId = 1 },
+    new Course() { Id = 7, CourseName = "Clientside programmering", TeacherId = 2 }
+};
+
+List<Enrollment> enrollments = new();
+Validation v = new();
+while (true)
+{
+    Console.Clear();
+
+    Semester semester = new(hovedforløbNavn, skoleNavn);
+    Console.WriteLine("--------------------------------------------------------------");
+    Console.WriteLine("{0}, {1} fag tilmelding app", skoleNavn, hovedforløbNavn);
+    Console.WriteLine("--------------------------------------------------------------");
+    Console.WriteLine();
+
+    int antalTilmeld = (enrollments.Where(a => a.CourseId == 1).ToList()).Count();
+    string fagNavn = (courses.FirstOrDefault(a => a.Id == 1)).CourseName;
+    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
+
+    antalTilmeld = (enrollments.Where(a => a.CourseId == 2).ToList()).Count();
+    fagNavn = (courses.FirstOrDefault(a => a.Id == 2)).CourseName;
+    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
+
+    antalTilmeld = (enrollments.Where(a => a.CourseId == 6).ToList()).Count();
+    fagNavn = (courses.FirstOrDefault(a => a.Id == 6)).CourseName;
+    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
+
+    Console.WriteLine();
+
+
+    if (errorMsg != null)
+    {
+        Console.WriteLine(errorMsg);
+    }
+
+    if (enrollments.Count() > 0)
+    {
+        foreach (Enrollment item in enrollments)
+        {
+            matchedStudent = students.FirstOrDefault(a => a.Id == item.StudentId);
+            matchedCourse = courses.FirstOrDefault(a => a.Id == item.CourseId);
+            if (matchedStudent != null && matchedCourse != null)
+            {
+                Console.WriteLine("{0} {1} tilmeldt fag {2}", matchedStudent.FirstName, matchedStudent.LastName, matchedCourse.CourseName);
+            }
+        }
+        Console.WriteLine("--------------------------------------------------------------");
+        Console.WriteLine();
+    }
+
+    errorMsg = null;
+
+    Console.WriteLine("Indsæt elev id: ");
+    string? studentId = Console.ReadLine();
+    bool succes = v.ValidateStudent(studentId, students);
+    if (succes)
+    {
+        Console.WriteLine("Indsæt fag id: ");
+        string courseId = Console.ReadLine();
+        succes = v.ValidateCourse(courseId, courses);
+    }
+    else
+    {
+        errorMsg = v.ErrorMessage;
+    }
+
+    if (succes)
+    {
+        int id = enrollments.Count() + 1;
+        enrollments.Add(new Enrollment() { Id = id, StudentId = v.StudentId, CourseId = v.CourseId });
+    }
+    else
+    {
+        errorMsg = v.ErrorMessage;
+    }
+}
