@@ -23,8 +23,8 @@ List<Student> students = new()
 {
     new Student() { Id = 1, FirstName = "Martin", LastName = "Jensen" },
     new Student() { Id = 2, FirstName = "Patrik", LastName = "Nielsen" },
-    new Student() { Id = 1, FirstName = "Susanne", LastName = "Hansen" },
-    new Student() { Id = 2, FirstName = "Thomas", LastName = "Olsen" }
+    new Student() { Id = 3, FirstName = "Susanne", LastName = "Hansen" },
+    new Student() { Id = 4, FirstName = "Thomas", LastName = "Olsen" }
 };
 
 List<Course> courses = new()
