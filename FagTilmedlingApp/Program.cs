@@ -11,6 +11,12 @@ string? skoleNavn = Console.ReadLine();
 Console.WriteLine("Angiv Hovedforløb: ");
 string? hovedforløbNavn = Console.ReadLine();
 
+Console.WriteLine("Angic Uddannelseslinje: ");
+string? uddannelseslinje = Console.ReadLine();
+
+Semester semester = new(hovedforløbNavn, skoleNavn);
+semester.SetUddannelseslinje(uddannelseslinje);
+
 
 
 List<Teacher> teachers = new()
@@ -41,9 +47,9 @@ while (true)
 {
     Console.Clear();
 
-    Semester semester = new(hovedforløbNavn, skoleNavn);
+    Semester s = new(hovedforløbNavn, skoleNavn);
     Console.WriteLine("--------------------------------------------------------------");
-    Console.WriteLine("{0}, {1} fag tilmelding app", skoleNavn, hovedforløbNavn);
+    Console.WriteLine("{0}, {1}, {2} fag tilmelding app", skoleNavn, hovedforløbNavn, uddannelseslinje);
     Console.WriteLine("--------------------------------------------------------------");
     Console.WriteLine();
 
