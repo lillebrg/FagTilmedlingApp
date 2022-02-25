@@ -11,11 +11,44 @@ string? skoleNavn = Console.ReadLine();
 Console.WriteLine("Angiv Hovedforløb: ");
 string? hovedforløbNavn = Console.ReadLine();
 
-Console.WriteLine("Angic Uddannelseslinje: ");
+Console.WriteLine("Angiv Uddannelseslinje: ");
 string? uddannelseslinje = Console.ReadLine();
 
 Semester semester = new(hovedforløbNavn, skoleNavn);
 semester.SetUddannelseslinje(uddannelseslinje);
+
+string? uddannelseslinjeBeskrivelse = null;
+bool exitLoop = false;
+while (!exitLoop)
+{
+    Console.WriteLine();
+    Console.WriteLine("Ønsker du at angiv en kort beskrivelse af uddannelseslinje: ");
+    Console.WriteLine("1) Ja");
+    Console.WriteLine("2) Nej");
+    Console.Write("Vælg 1 eller 2: ");
+    switch ((Console.ReadKey()).Key)
+    {
+        case ConsoleKey.D1:
+            Console.WriteLine();
+            Console.WriteLine("Angiv kort beskrivelse af uddannelseslinje: ");
+            uddannelseslinjeBeskrivelse = Console.ReadLine();
+            exitLoop = true;
+            break;
+        case ConsoleKey.D2:
+            exitLoop = true;
+            break;
+        default:
+            Console.WriteLine();
+            Console.WriteLine("Forkert valgt, prøv igen: ");
+            break;
+    }
+}
+
+Semester se = new(hovedforløbNavn, skoleNavn);
+if (uddannelseslinjeBeskrivelse != null)
+    semester.SetUddannelseslinje(uddannelseslinje, uddannelseslinjeBeskrivelse);
+else
+    semester.SetUddannelseslinje(uddannelseslinje);
 
 
 

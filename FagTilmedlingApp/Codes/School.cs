@@ -11,6 +11,7 @@ namespace FagTilmeldingApp.Codes
         public string? SchoolName { get; set; }
 
         public abstract string? Uddannelseslinje { get; set; }
+        public string UddannelseslinjeBeskrivelse { get; set; }
 
         public School(string? schoolName)
         {
