@@ -13,11 +13,6 @@ namespace FagTilmeldingApp.Codes
         public List<TECPerson> Teachers { get; set; }
 
 
-        //public Schooling(SchoolingCategory s)
-        //{
-        //    SchoolingName = s;
-        //}
-
         public Schooling(SchoolingCategory SchoolingName)
         {
             List<TECPerson> TeacherName = new()
