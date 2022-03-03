@@ -1,6 +1,4 @@
-﻿using FagTilmedlingApp.Codes.Models;
-using FagTilmedlingApp.Codes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,38 +8,34 @@ namespace FagTilmeldingApp.Codes
 {
     internal abstract class Schooling
     {
-        Enums.SchoolingCategory SchoolingName { get; set; }
-        
-         
-        public Schooling(Enums.SchoolingCategory s)
+       public SchoolingCategory SchoolingName { get; set; }
+        public List<string>? Courses { get; set; }
+        public List<TECPerson> Teachers { get; set; }
+
+
+        //public Schooling(SchoolingCategory s)
+        //{
+        //    SchoolingName = s;
+        //}
+
+        public Schooling(SchoolingCategory SchoolingName)
         {
-            SchoolingName = s;
+            List<TECPerson> TeacherName = new()
+            {
+                new TECPerson { FullName = "Niels Olsen", UddannelsesLinje = SchoolingCategory.Programmeringslinje },
+                new TECPerson { FullName = "Bo Hansen", UddannelsesLinje = SchoolingCategory.Supportlinje },
+                new TECPerson { FullName = "Ole Nielsen", UddannelsesLinje = SchoolingCategory.Infrastrukturlinje }
+            };
+            Teachers = TeacherName.ToList();
         }
-        
-        public Schooling()
-        {
-        }
-
-        List<Course> Courses = new()
-        {
-
-        };
-
-        List<TECPerson> Teachers = new()
-        {
-            new TECPerson() { FullName = "Bo Hansen" },
-            new TECPerson() { FullName = "Niels Olesen" },
-            new TECPerson() { FullName = "Ole Nielsen" }
-        };
 
         public virtual void SetCourses()
         {
+            List<string> courses = new();
+            Courses = courses;
+            foreach (var displayCourses in (Enum.GetNames(typeof(CourseCategory))))
+                courses.Add(displayCourses);
 
-            foreach (string? str in Enum.GetNames(typeof(Enums.CourseCategory)))
-            {
-                new Course() { CoursesEnum = str};
-
-            }
         }
         public abstract void GetTeacher();
     }

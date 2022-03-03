@@ -1,114 +1,142 @@
-﻿using FagTilmeldingApp.Codes;
+﻿
 
+SchoolingCategory school = new();
+List<TECPerson> persons = new();
 
+Course c = new(school);
 
-//using FagTilmedlingApp.Codes.Models;
-//// projekt opgave 
+while (true)
+{
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("Vælg UddannelsesLinje");
+    Console.WriteLine("1: Programmering");
+    Console.WriteLine("2: Support");
+    Console.WriteLine("3: Infrastruktur");
 
-//string? errorMsg = null;
-//Student? matchedStudent = null;
-//Course ? matchedCourse = null;
+    Console.WriteLine("vælg 1, 2 eller 3");
 
-//Console.WriteLine("Vælg uddannelseslinje: \n {0} 1) Programmering \n {1} 2) Support \n {2} 3) Infrastruktur \n \n Vælg 1, 2 eller 3:");
-//string? SchoolingName = Console.ReadLine();
+    var choice = Console.ReadKey();
 
+    switch (choice.Key)
+    {
+        case ConsoleKey.D1:
+            c.SchoolingName = SchoolingCategory.Programmeringslinje;
+            c.SetCourses();
+            break;
+        case ConsoleKey.D2:
+            c.SchoolingName = SchoolingCategory.Supportlinje;
+            c.SetCourses();
+            break;
+        case ConsoleKey.D3:
+            c.SchoolingName = SchoolingCategory.Infrastrukturlinje;
+            c.SetCourses();
+            break;
+        default:
+            Console.Clear();
+            Console.WriteLine("Det skrevet svar er forkert prøv igen. Tryk enter for og forsætte.");
+            Console.ReadKey();
+            break;
+    }
 
+    Console.Clear();
 
+    if (choice.Key == ConsoleKey.D1 || choice.Key == ConsoleKey.D2 || choice.Key == ConsoleKey.D3)
+    {
+        Console.WriteLine($"{c.ToString()}");
+        Console.WriteLine("------------------------------------");
 
+        if (c.SchoolingName == SchoolingCategory.Programmeringslinje)
+        {
+            Console.Write("Af alle uddannelseslinjer har vi ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"Programmering");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" med de følgene fag:");
+        }
+        else if (c.SchoolingName == SchoolingCategory.Supportlinje)
+        {
+            Console.Write("Af alle uddannelseslinjer har vi ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Support");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" med de følgene fag:");
+        }
+        else
+        {
+            Console.Write("Af alle uddannelseslinjer har vi ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Infrastruktur");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" med de følgene fag:");
+        }
 
+        Console.WriteLine("------------------------------------");
 
-//List<TECPerson> Teachers = new()
-//{
-//    new TECPerson() { Id = 1, FirstName = "Niels", LastName = "Olesen" },
-//    new TECPerson() { Id = 2, FirstName = "Henrik", LastName = "Poulsen" }
-//};
+        foreach (string temp in c.Courses)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            if (c.SchoolingName == SchoolingCategory.Programmeringslinje && temp.Contains("programmering"))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{temp}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else if (c.SchoolingName == SchoolingCategory.Supportlinje && temp.Contains("server"))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"{temp}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else if (c.SchoolingName == SchoolingCategory.Infrastrukturlinje && temp.Contains("netværk"))
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{temp}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"{temp}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
 
-//List<Student> students = new()
-//{
-//    new Student() { Id = 1, FirstName = "Martin", LastName = "Jensen" },
-//    new Student() { Id = 2, FirstName = "Patrik", LastName = "Nielsen" },
-//    new Student() { Id = 3, FirstName = "Susanne", LastName = "Hansen" },
-//    new Student() { Id = 4, FirstName = "Thomas", LastName = "Olsen" }
-//};
+        Console.WriteLine("------------------------------------");
 
-//List<Course> courses = new()
-//{
-//    new Course() { Id = 1, CourseName = "Grundlæggende programmering", TeacherId = 1 },
-//    new Course() { Id = 2, CourseName = "Database programmering", TeacherId = 1 },
-//    new Course() { Id = 6, CourseName = "StudieTeknik", TeacherId = 1 },
-//    new Course() { Id = 7, CourseName = "Clientside programmering", TeacherId = 2 }
-//};
+        Console.WriteLine("Lærer:");
 
-//List<Enrollment> enrollments = new();
-//Validation v = new();
-//while (true)
-//{
-//    Console.Clear();
+        c.Teachers.Sort();
+        foreach (var item in c.Teachers)
+        {
+            if (c.SchoolingName == item.UddannelsesLinje)
+            {
+                if (item.FullName == "Niels Olsen")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{item.FullName}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else if (item.FullName == "Bo Hansen")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{item.FullName}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"{item.FullName}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"{item.FullName}");
+            }
+        }
 
-//    Course s = new(hovedforløbNavn, skoleNavn);
-//    Console.WriteLine("--------------------------------------------------------------");
-//    Console.WriteLine("{0}, {1}, {2} fag tilmelding app", skoleNavn, hovedforløbNavn, uddannelseslinje);
-//    Console.WriteLine("--------------------------------------------------------------");
-//    Console.WriteLine();
-
-//    int antalTilmeld = (enrollments.Where(a => a.CourseId == 1).ToList()).Count();
-//    string fagNavn = (courses.FirstOrDefault(a => a.Id == 1)).CourseName;
-//    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
-
-//    antalTilmeld = (enrollments.Where(a => a.CourseId == 2).ToList()).Count();
-//    fagNavn = (courses.FirstOrDefault(a => a.Id == 2)).CourseName;
-//    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
-
-//    antalTilmeld = (enrollments.Where(a => a.CourseId == 6).ToList()).Count();
-//    fagNavn = (courses.FirstOrDefault(a => a.Id == 6)).CourseName;
-//    Console.WriteLine("{0} elever i {1}", antalTilmeld, fagNavn);
-
-//    Console.WriteLine();
-
-
-//    if (errorMsg != null)
-//    {
-//        Console.WriteLine(errorMsg);
-//    }
-
-//    if (enrollments.Count() > 0)
-//    {
-//        foreach (Enrollment item in enrollments)
-//        {
-//            matchedStudent = students.FirstOrDefault(a => a.Id == item.StudentId);
-//            matchedCourse = courses.FirstOrDefault(a => a.Id == item.CourseId);
-//            if (matchedStudent != null && matchedCourse != null)
-//            {
-//                Console.WriteLine("{0} {1} tilmeldt fag {2}", matchedStudent.FirstName, matchedStudent.LastName, matchedCourse.CourseName);
-//            }
-//        }
-//        Console.WriteLine("--------------------------------------------------------------");
-//        Console.WriteLine();
-//    }
-
-//    errorMsg = null;
-
-//    Console.WriteLine("Indsæt elev id: ");
-//    string? studentId = Console.ReadLine();
-//    bool succes = v.ValidateStudent(studentId, students);
-//    if (succes)
-//    {
-//        Console.WriteLine("Indsæt fag id: ");
-//        string courseId = Console.ReadLine();
-//        succes = v.ValidateCourse(courseId, courses);
-//    }
-//    else
-//    {
-//        errorMsg = v.ErrorMessage;
-//    }
-
-//    if (succes)
-//    {
-//        int id = enrollments.Count() + 1;
-//        enrollments.Add(new Enrollment() { Id = id, StudentId = v.StudentId, CourseId = v.CourseId });
-//    }
-//    else
-//    {
-//        errorMsg = v.ErrorMessage;
-//    }
-//}
+        Console.ReadKey();
+    }
+    Console.Clear();
+}

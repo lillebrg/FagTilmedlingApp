@@ -1,5 +1,4 @@
-﻿using FagTilmedlingApp.Codes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace FagTilmedlingApp.Codes.Models
 {
-    internal class TECPerson
+    internal class TECPerson : IComparable<TECPerson>
     {
-        Enums.SchoolingCategory Uddannelseslinje { get; set; }
-        public string? FullName { get; set; } 
+        public SchoolingCategory UddannelsesLinje { get; set; }
+        public string? FullName { get; set; }
+        public int CompareTo(TECPerson? next)
+        {
+            return FullName.CompareTo(next.FullName);
+        }
     }
 }
